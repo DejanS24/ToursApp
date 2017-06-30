@@ -1,19 +1,13 @@
 package gui;
 
 import java.awt.BorderLayout;
-import java.awt.Container;
-
-import javax.swing.GroupLayout;
-import javax.swing.GroupLayout.Alignment;
 import javax.swing.JButton;
-import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
-import javax.swing.JPasswordField;
 import javax.swing.JTextField;
 
 
-public class LogInWindow extends JFrame{
+public class LogInWindow extends Window{
 		
 	
 	JPanel jp = new JPanel();
@@ -21,11 +15,8 @@ public class LogInWindow extends JFrame{
 	public LogInWindow(){
 		
 		
-		super("Log In");
-		setSize(400,200);
-		setLocationRelativeTo(null);
-		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		
+		super();
+		setTitle("Log in");
 		
 		JTextField username = new JTextField(20);
 		JTextField pass = new JTextField(20);
@@ -47,4 +38,5 @@ public class LogInWindow extends JFrame{
 		
 	}
 
+	
 }
