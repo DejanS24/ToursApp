@@ -9,6 +9,7 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 
+import model.collections.IzvedbeTure;
 import model.data.Admin;
 import model.data.IzvedbaTure;
 import model.data.Korisnik;
@@ -23,7 +24,7 @@ public class FilesReader {
 	public static ArrayList<Tura> procitajTure() throws IOException, ParseException{
 		ArrayList<Tura> ture = new ArrayList<Tura>();
 		
-		DateFormat sdf = new SimpleDateFormat("dd.mm.yyyy");
+		DateFormat sdf = new SimpleDateFormat("dd.MM.yyyy");
 		
 		BufferedReader br = new BufferedReader(new FileReader("ture.txt"));
 		try {
@@ -31,11 +32,14 @@ public class FilesReader {
 
 		    String turaId = "";
 		    int brojac = 0;
-		    while (line != null) {
-		    	Tura t = new Tura();
+	    	Tura t = new Tura();
+	    	ArrayList<IzvedbaTure> izvedbe = new ArrayList<IzvedbaTure>();
+	    	
+	    	while (line != null) {
 		    	String[] delovi = line.split("\\|");
 		    	
 		    	if (brojac == 0){
+		    		turaId = delovi[0];
 		    		String id = delovi[0];
 		    		String grad = delovi[1];
 		    		String vodic = delovi[2];
@@ -59,8 +63,18 @@ public class FilesReader {
 		    			}
 		    			
 		    			IzvedbaTure it = new IzvedbaTure(pocetak,kraj,cena,lokacije);
+		    			it.setIdTure(turaId);
+		    			izvedbe.add(it);
 		    		}else{
-		    			turaId = delovi[0];
+
+		    			IzvedbeTure izvTure = new IzvedbeTure(izvedbe);
+		    			t.setListaIzvedbi(izvTure);
+
+				    	ture.add(t);
+				    	
+				    	t = new Tura();
+		    			izvedbe.clear();
+				    	turaId = delovi[0];
 		    			String id = delovi[0];
 			    		String grad = delovi[1];
 			    		String vodic = delovi[2];
@@ -72,10 +86,14 @@ public class FilesReader {
 		    			
 		    		}
 		    	}
-		    	ture.add(t);
 		    	
 		        line = br.readLine();
 		    }
+	    	
+			t.setListaIzvedbi(new IzvedbeTure(izvedbe));
+			
+	    	ture.add(t);
+	    	
 		} finally {
 		    br.close();
 		}
@@ -101,11 +119,11 @@ public class FilesReader {
 		    		String ime = delovi[3];
 		    		String prz = delovi[4];
 		    		String pol = delovi[5];
-		    		if (pol.equalsIgnoreCase("0")){
-			    		k = new Vodic(ki,l,ime,prz,Pol.Muski);
+		    		if (pol.equalsIgnoreCase("Muski")){
+			    		k = new Vodic(ki,l,prz,ime,Pol.Muski);
 
 		    		}else{
-			    		k = new Vodic(ki,l,ime,prz,Pol.Zenski);
+			    		k = new Vodic(ki,l,prz,ime,Pol.Zenski);
 
 		    		}
 		    	}else if (delovi[0].equalsIgnoreCase("t")){
@@ -115,10 +133,10 @@ public class FilesReader {
 		    		String prz = delovi[4];
 		    		String pol = delovi[5];
 		    		if (pol.equalsIgnoreCase("0")){
-			    		k = new Turista(ki,l,ime,prz,Pol.Muski);
+			    		k = new Turista(ki,l,prz,ime,Pol.Muski);
 
 		    		}else{
-			    		k = new Turista(ki,l,ime,prz,Pol.Zenski);
+			    		k = new Turista(ki,l,prz,ime,Pol.Zenski);
 
 		    		}
 		    		

@@ -1,5 +1,6 @@
 package model.data;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 
@@ -33,10 +34,7 @@ public class IzvedbaTure extends Tura{
 	public void setLokIzvedbe(ArrayList<Lokacija> lokIzvedbe) {
 		this.lokIzvedbe = lokIzvedbe;
 	}
-	@Override
-	public String toString() {
-		return pocetak + "|" + kraj + "|" + cena + "|" + lokIzvedbe;
-	}
+	
 	public IzvedbaTure(Date pocetak, Date kraj, int cena, ArrayList<Lokacija> lokIzvedbe) {
 		super();
 		this.pocetak = pocetak;
@@ -44,11 +42,29 @@ public class IzvedbaTure extends Tura{
 		this.cena = cena;
 		this.lokIzvedbe = lokIzvedbe;
 	}
+	
 	public IzvedbaTure() {
 		super();
 	}
 	
+	public String toString() {
+		String p;
+		String k;
+		SimpleDateFormat sdf = new SimpleDateFormat("dd.MM.yyyy");
+		p = sdf.format(pocetak);
+		k = sdf.format(kraj);
+
+		return idTure + "|" + p + "|" + k + "|" + cena + "|" + LocToString();
+	}
 	
+	public String LocToString(){
+		String str = "";
+		for (int i = 0; i < lokIzvedbe.size(); i++) {
+			str = str + lokIzvedbe.get(i).getNaziv() + ";";
+		}
+		str = str.substring(0, str.length() - 1);
+		return str;
+	}
 	
 	
 }

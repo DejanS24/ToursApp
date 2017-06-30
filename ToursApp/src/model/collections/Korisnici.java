@@ -14,6 +14,17 @@ public class Korisnici {
 
 	public void setKorisnici(ArrayList<Korisnik> korisnici) {
 		this.korisnici = korisnici;
+	}
+
+	public Korisnici(ArrayList<Korisnik> korisnici) {
+		super();
+		this.korisnici = korisnici;
+	}
+
+	public Korisnici() {
+		super();
 	}	
+	
+	
 	
 }

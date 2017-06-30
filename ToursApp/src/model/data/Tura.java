@@ -35,7 +35,17 @@ public class Tura {
 	}
 	@Override
 	public String toString() {
-		return idTure + "|" + vodic + "|" + grad;
+		return idTure + "|" + grad + "|" + vodic;
+	}
+	public Tura(String idTure, String vodic, Lokacija grad, IzvedbeTure listaIzvedbi) {
+		super();
+		this.idTure = idTure;
+		this.vodic = vodic;
+		this.grad = grad;
+		this.listaIzvedbi = listaIzvedbi;
+	}
+	public Tura() {
+		super();
 	}
 	
 	
