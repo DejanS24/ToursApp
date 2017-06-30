@@ -2,6 +2,12 @@ package model.data;
 
 public class Lokacija {
 	private String naziv;
+	
+
+	public Lokacija(String naziv) {
+		super();
+		this.naziv = naziv;
+	}
 
 	public String getNaziv() {
 		return naziv;

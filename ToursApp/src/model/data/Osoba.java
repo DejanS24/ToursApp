@@ -2,7 +2,7 @@ package model.data;
 
 public class Osoba extends Korisnik{
 
-	public enum Pol {Ženski, Muški}
+	public enum Pol {Zenski, Muski}
 	
 	private String prezime;
 	private String ime;
@@ -32,8 +32,8 @@ public class Osoba extends Korisnik{
 		this.pol = pol;
 	}
 
-	public Osoba(String prezime, String ime, Pol pol) {
-		super();
+	public Osoba(String korisnickoIme, String lozinka, String prezime, String ime, Pol pol) {
+		super(korisnickoIme, lozinka);
 		this.prezime = prezime;
 		this.ime = ime;
 		this.pol = pol;

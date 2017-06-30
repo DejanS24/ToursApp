@@ -1,9 +1,11 @@
 package model.data;
 
-public class Vodic extends Osoba{
+public class Vodic extends Turista{
 
-	public Vodic(String prezime, String ime, Pol pol) {
-		super(prezime, ime, pol);
+	public Vodic(String korisnickoIme, String lozinka, String prezime, String ime, Pol pol) {
+		super(korisnickoIme, lozinka, prezime, ime, pol);
 	}
 
+	
+	
 }

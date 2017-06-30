@@ -8,6 +8,7 @@ import util.FilesReader;
 
 public class MyApp {
 
+	@SuppressWarnings({ "static-access" })
 	public static void main(String[] args) throws IOException {
 		FilesReader fr = new FilesReader();
 		ArrayList<Korisnik> k = fr.procitajKorisnike();

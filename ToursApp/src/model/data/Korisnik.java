@@ -1,12 +1,9 @@
 package model.data;
 
 public class Korisnik {
-
-	public enum TipKorisnika {Turista, Vodic, Administrator}
 	
 	protected String korisnickoIme;
 	protected String lozinka;
-	
 
 	public Korisnik() {}
 
