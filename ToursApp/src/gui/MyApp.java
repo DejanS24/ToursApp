@@ -39,13 +39,13 @@ public class MyApp {
 		System.out.println(korisnik);
 		
 		if (korisnik instanceof Vodic){
-			VodicWindow vodicWin = new VodicWindow();
+			VodicWindow vodicWin = new VodicWindow(korisnik);
 			vodicWin.setVisible(true);
 		}else if (korisnik instanceof Turista){
-			TuristaWindow turistaWin = new TuristaWindow();
+			TuristaWindow turistaWin = new TuristaWindow(korisnik);
 			turistaWin.setVisible(true);
 		}else{
-			AdminWindow adminWin = new AdminWindow();
+			AdminWindow adminWin = new AdminWindow(korisnik);
 			adminWin.setVisible(true);
 		}
 	}
