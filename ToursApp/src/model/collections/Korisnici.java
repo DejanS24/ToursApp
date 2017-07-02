@@ -7,6 +7,24 @@ import model.data.Korisnik;
 public class Korisnici {
 
 	ArrayList<Korisnik> korisnici;
+
+	public ArrayList<Korisnik> getKorisnici() {
+		return korisnici;
+	}
+
+	public void setKorisnici(ArrayList<Korisnik> korisnici) {
+		this.korisnici = korisnici;
+	}
+
+	public Korisnici(ArrayList<Korisnik> korisnici) {
+		super();
+		this.korisnici = korisnici;
+	}
+
+	public Korisnici() {
+		super();
+	}	
+	
 	
 	
 }
