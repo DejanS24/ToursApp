@@ -1,6 +1,6 @@
 package model.data;
 
-public class Osoba extends Korisnik{
+public abstract class Osoba extends Korisnik{
 
 	public enum Pol {Zenski, Muski}
 	

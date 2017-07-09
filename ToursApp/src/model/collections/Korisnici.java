@@ -4,7 +4,7 @@ import java.util.ArrayList;
 
 import model.data.Korisnik;
 
-public class Korisnici {
+public class Korisnici extends Kolekcija{
 
 	ArrayList<Korisnik> korisnici;
 

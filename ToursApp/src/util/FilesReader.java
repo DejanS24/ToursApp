@@ -10,10 +10,16 @@ import java.util.ArrayList;
 import java.util.Date;
 
 import model.collections.IzvedbeTure;
+import model.collections.Komentari;
+import model.collections.LokacijeIzvedbe;
+import model.collections.Ocene;
 import model.data.Admin;
 import model.data.IzvedbaTure;
+import model.data.Komentar;
 import model.data.Korisnik;
 import model.data.Lokacija;
+import model.data.LokacijaIzvedbe;
+import model.data.Ocena;
 import model.data.Osoba.Pol;
 import model.data.Tura;
 import model.data.Turista;
@@ -24,81 +30,186 @@ public class FilesReader {
 	public static ArrayList<Tura> procitajTure() throws IOException, ParseException{
 		ArrayList<Tura> ture = new ArrayList<Tura>();
 		
-		DateFormat sdf = new SimpleDateFormat("dd.MM.yyyy");
-		
 		BufferedReader br = new BufferedReader(new FileReader("ture.txt"));
 		try {
 		    String line = br.readLine();
 
 		    String turaId = "";
-		    int brojac = 0;
-	    	Tura t = new Tura();
-	    	ArrayList<IzvedbaTure> izvedbe = new ArrayList<IzvedbaTure>();
+		    String drzava;
+		    String grad;
+		    String opis;
+		    String slika;
 	    	
 	    	while (line != null) {
 		    	String[] delovi = line.split("\\|");
-		    	
-		    	if (brojac == 0){
+		    	Tura t = new Tura();
 		    		turaId = delovi[0];
-		    		String id = delovi[0];
-		    		String grad = delovi[1];
-		    		String vodic = delovi[2];
+		    		drzava = delovi[1];
+		    		grad = delovi[2];
+		    		opis = delovi[3];
+		    	    slika = delovi[4];
 		    		
-		    		t.setIdTure(id);
-		    		t.setGrad(new Lokacija(grad));
-		    		t.setVodic(vodic);
-		    		brojac++;
-		    	}else{
-		    		if (turaId.equalsIgnoreCase(delovi[0])){
-		    			
-		    			Date pocetak = sdf.parse(delovi[1]);
-		    			Date kraj = sdf.parse(delovi[2]);
-		    			int cena = Integer.parseInt(delovi[3]);
-		    			
-		    			ArrayList<Lokacija> lokacije = new ArrayList<Lokacija>();
-		    			String[] lokDelovi = delovi[4].split("\\;");
-		    			for (int i = 0; i < lokDelovi.length; i++){
-		    				Lokacija lk = new Lokacija(lokDelovi[i]);
-		    				lokacije.add(lk);
-		    			}
-		    			
-		    			IzvedbaTure it = new IzvedbaTure(pocetak,kraj,cena,lokacije);
-		    			it.setIdTure(turaId);
-		    			izvedbe.add(it);
-		    		}else{
-
-		    			IzvedbeTure izvTure = new IzvedbeTure(izvedbe);
-		    			t.setListaIzvedbi(izvTure);
-
-				    	ture.add(t);
-				    	
-				    	t = new Tura();
-		    			izvedbe.clear();
-				    	turaId = delovi[0];
-		    			String id = delovi[0];
-			    		String grad = delovi[1];
-			    		String vodic = delovi[2];
-			    		
-			    		t.setIdTure(id);
-			    		t.setGrad(new Lokacija(grad));
-			    		t.setVodic(vodic);
-		    			brojac = 1;
-		    			
-		    		}
-		    	}
+		    		t.setIdTure(turaId);
+		    		t.setGrad(new Lokacija(drzava,grad,opis));
+		    		t.setSlika(slika);
 		    	
-		        line = br.readLine();
-		    }
-	    	
-			t.setListaIzvedbi(new IzvedbeTure(izvedbe));
-			
-	    	ture.add(t);
-	    	
+		    		ture.add(t);
+		    		line = br.readLine();
+	    	}
+
 		} finally {
 		    br.close();
 		}
 		
+		ture = procitajIzvedbe(ture);
 		return ture;
+	}
+	
+	public static ArrayList<Tura> procitajIzvedbe(ArrayList<Tura> ture)  throws IOException, ParseException{
+		DateFormat sdf = new SimpleDateFormat("dd.MM.yyyy HH:mm");
+		BufferedReader br = new BufferedReader(new FileReader("izvedbeTure.txt"));
+		ArrayList<IzvedbaTure> listaIzvedbiTure = new ArrayList<IzvedbaTure>();
+		try{
+			String line = br.readLine();
+			String idTure = "";
+			String idIzvedbe = "";
+			Date pocetak;
+			Date kraj;
+			int min;
+			int max;
+			String opis = "";
+			String cene = "";
+			String lokacija = "";
+			String vodic = "";
+			String komentari = "";
+			String turisti = "";
+			String ocene = "";
+			
+			while(line != null){
+				IzvedbaTure it = new IzvedbaTure();	
+				
+				Ocene o = new Ocene();
+				Komentari k = new Komentari();
+				
+				ArrayList<Ocena> listaOcena = new ArrayList<Ocena>();
+				
+				ArrayList<Komentar> listaKomentara = new ArrayList<Komentar>();
+				LokacijeIzvedbe l = new LokacijeIzvedbe();
+				
+				ArrayList<LokacijaIzvedbe> listaLokacija = new ArrayList<LokacijaIzvedbe>();
+				ArrayList<String> listaTurista = new ArrayList<String>();
+				
+				
+				String [] delovi = line.split("\\|");
+				
+				idTure = delovi[0];
+				idIzvedbe = delovi[1];
+				pocetak = sdf.parse(delovi[2]);
+				kraj = sdf.parse(delovi[3]);
+				min = Integer.parseInt(delovi[4]);
+				max = Integer.parseInt(delovi[5]);
+				opis = delovi[8];
+				cene = delovi[6];
+				lokacija = delovi[7];
+				vodic = delovi[9];
+				komentari = delovi[10];
+				ocene = delovi[11];
+				turisti = delovi[12];
+				
+				it.setIdTure(idTure);
+				it.setIdIzvedbe(idIzvedbe);
+				it.setPocetak(pocetak);
+				it.setKraj(kraj);
+				it.setMinTurista(min);
+				it.setMaxTurista(max);
+				it.setVodic(vodic);
+				
+				String[] lok = lokacija.split(";");
+				String[] cen = cene.split(";");
+				String[] opisi = opis.split(";");
+				
+				
+				
+				for (int i = 0; i < lok.length; i++) {
+					LokacijaIzvedbe lk = new LokacijaIzvedbe();
+					lk.setCena(cen[i]);
+					lk.setNaziv(lok[i]);
+					lk.setOpis(opisi[i]);
+					/*System.out.println(lk.getNaziv());
+					System.out.println(lk.getOpis());
+					System.out.println(lk.getCena());
+					System.out.println("B");
+					System.out.println();*/
+					listaLokacija.add(lk);
+					
+					
+				}
+				
+				
+				System.out.println();
+				for (int i = 0; i < listaLokacija.size(); i++) {
+				
+					System.out.println(listaLokacija.get(i).getNaziv());
+					
+					
+				}
+				System.out.println();
+				l.setLokacijeIzvedbe(listaLokacija);
+				it.setLokIzvedbe(l);
+				
+				
+				String[] tur = turisti.split(";");
+				String[] oc = ocene.split(";");
+				String[] kom = komentari.split(";");
+				
+				for (int i = 0; i < oc.length; i++) {
+					Ocena ocena1 = new Ocena();
+					ocena1.setVrednost(Integer.parseInt(oc[i]));
+					listaOcena.add(ocena1);
+				}
+				o.setOcene(listaOcena);
+				
+				it.setOcene(o);
+				
+				for (int i = 0; i < kom.length; i++) {
+					Komentar komentar1 = new Komentar();
+					String[] komentari1 = kom[i].split(":");
+					komentar1.setNaziv(komentari1[0]);
+					komentar1.setTelo(komentari1[1]);
+					listaKomentara.add(komentar1);
+				}
+				k.setKomentari(listaKomentara);
+				it.setKomentari(k);
+				for (int i = 0; i < tur.length; i++) {
+					listaTurista.add(tur[i]);
+				}
+				it.setTuristi(listaTurista);
+				
+				line = br.readLine();
+				listaIzvedbiTure.add(it);
+				
+				}			
+		}
+		finally{
+			br.close();
+		}
+		
+		for (int i = 0; i < ture.size(); i++) {
+			ArrayList<IzvedbaTure> izvedbe = new ArrayList<IzvedbaTure>();
+			for (int j = 0; j < listaIzvedbiTure.size(); j++) {
+				if(ture.get(i).getIdTure().equals(listaIzvedbiTure.get(j).getIdTure())){
+					izvedbe.add(listaIzvedbiTure.get(j));
+				}
+			}
+			IzvedbeTure izvedbeTure = new IzvedbeTure();
+			izvedbeTure.setIzvedbeTure(izvedbe);
+			ture.get(i).setListaIzvedbi(izvedbeTure);
+			
+		}
+		
+		
+		return ture;
+		
 	}
 	
 	public static ArrayList<Korisnik> procitajKorisnike() throws IOException{
@@ -109,7 +220,7 @@ public class FilesReader {
 		    String line = br.readLine();
 
 		    while (line != null) {
-		    	Korisnik k = new Korisnik();
+		    	//Korisnik k = new Korisnik();
 		    	String[] delovi = line.split("\\|");
 		    	
 		    	if (delovi[0].equalsIgnoreCase("v")){
@@ -120,10 +231,12 @@ public class FilesReader {
 		    		String prz = delovi[4];
 		    		String pol = delovi[5];
 		    		if (pol.equalsIgnoreCase("Muski")){
-			    		k = new Vodic(ki,l,prz,ime,Pol.Muski);
+			    		Korisnik k = new Vodic(ki,l,prz,ime,Pol.Muski);
+			    		korisnici.add(k);
 
 		    		}else{
-			    		k = new Vodic(ki,l,prz,ime,Pol.Zenski);
+			    		Korisnik k = new Vodic(ki,l,prz,ime,Pol.Zenski);
+			    		korisnici.add(k);
 
 		    		}
 		    	}else if (delovi[0].equalsIgnoreCase("t")){
@@ -133,21 +246,22 @@ public class FilesReader {
 		    		String prz = delovi[4];
 		    		String pol = delovi[5];
 		    		if (pol.equalsIgnoreCase("0")){
-			    		k = new Turista(ki,l,prz,ime,Pol.Muski);
+			    		Korisnik k = new Turista(ki,l,prz,ime,Pol.Muski);
+			    		korisnici.add(k);
 
 		    		}else{
-			    		k = new Turista(ki,l,prz,ime,Pol.Zenski);
+			    		Korisnik k = new Turista(ki,l,prz,ime,Pol.Zenski);
+			    		korisnici.add(k);
 
 		    		}
 		    		
 		    	}else{
 		    		String ki = delovi[1];
 		    		String l = delovi[2];
-		    		k = new Admin(ki,l);
+		    		Korisnik k = new Admin(ki,l);
+		    		korisnici.add(k);
+
 		    	}
-		    	
-		    	
-		    	korisnici.add(k);
 		    	
 		        line = br.readLine();
 		    }

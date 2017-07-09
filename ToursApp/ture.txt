@@ -1,5 +1,5 @@
-001|Novi Sad|pera1
-001|03.07.2017|04.07.2017|230|Kej;Trg;Pozoriste
-001|12.07.2017|14.07.2017|420|Limanska pijaca;Strand;Big centar
-002|Beograd|pera1
-002|22.07.2017|24.07.2017|300|Usce;Kalemegdan;Knez Mihajlova
+001|Srbija|Novi Sad|Jako lep grad|novisad.jpg
+002|Srbija|Beograd|Jako lep grad|belgrade.jpg
+003|Francuska|Pariz|Jako lep grad|paris.jpg
+004|Italija|Venecija|Jako lep grad|venice.jpg
+005|Italija|Rim|Jako lep grad|rome.jpg

@@ -39,10 +39,6 @@ public class FilesWriter {
 			tt.write("");
 			for (int i = 0; i < t.getTure().size(); i++) {
 				tt.println(t.getTure().get(i).toString());
-				
-				for(int j = 0; j < t.getTure().get(i).getListaIzvedbi().getIzvedbeTure().size(); j++){
-					tt.println(t.getTure().get(i).getListaIzvedbi().getIzvedbeTure().get(j).toString());
-				}
 			}
 			tt.close();
 		} catch (IOException e) {
@@ -50,4 +46,19 @@ public class FilesWriter {
 		}
 	};
 	
+	public void upisiIzvedbe(Ture t){
+		try {
+			PrintWriter tt = new PrintWriter(new FileWriter("izvedbe_out.txt"));
+			tt.write("");
+			for (int i = 0; i < t.getTure().size(); i++) {
+				for (int j = 0; j < t.getTure().get(i).getListaIzvedbi().getIzvedbeTure().size(); j++) {
+					tt.println(t.getTure().get(i).getListaIzvedbi().getIzvedbeTure().get(j).toString());
+				}
+				
+			}
+			tt.close();
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+	}
 }
