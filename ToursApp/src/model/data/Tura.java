@@ -24,8 +24,8 @@ public class Tura {
 	public Lokacija getGrad() {
 		return grad;
 	}
-	public void setGrad(Lokacija grad) {
-		this.grad = grad;
+	public void setGrad(Lokacija lokacijaIzvedbe) {
+		this.grad = lokacijaIzvedbe;
 	}
 	public IzvedbeTure getListaIzvedbi() {
 		return listaIzvedbi;

@@ -1,15 +1,21 @@
 package model.data;
 
 import java.text.SimpleDateFormat;
-import java.util.ArrayList;
 import java.util.Date;
+
+import model.collections.Korisnici;
+import model.collections.LokacijeIzvedbe;
 
 public class IzvedbaTure extends Tura{
 
 	Date pocetak;
 	Date kraj;
 	int cena;
-	ArrayList<Lokacija> lokIzvedbe;
+	LokacijeIzvedbe lokIzvedbe;
+	int minTurista;
+	int maxTurista;
+	Korisnici turisti;
+	
 	public Date getPocetak() {
 		return pocetak;
 	}
@@ -28,14 +34,14 @@ public class IzvedbaTure extends Tura{
 	public void setCena(int cena) {
 		this.cena = cena;
 	}
-	public ArrayList<Lokacija> getLokIzvedbe() {
+	public LokacijeIzvedbe getLokIzvedbe() {
 		return lokIzvedbe;
 	}
-	public void setLokIzvedbe(ArrayList<Lokacija> lokIzvedbe) {
+	public void setLokIzvedbe(LokacijeIzvedbe lokIzvedbe) {
 		this.lokIzvedbe = lokIzvedbe;
 	}
 	
-	public IzvedbaTure(Date pocetak, Date kraj, int cena, ArrayList<Lokacija> lokIzvedbe) {
+	public IzvedbaTure(Date pocetak, Date kraj, int cena, LokacijeIzvedbe lokIzvedbe) {
 		super();
 		this.pocetak = pocetak;
 		this.kraj = kraj;
@@ -59,8 +65,8 @@ public class IzvedbaTure extends Tura{
 	
 	public String LocToString(){
 		String str = "";
-		for (int i = 0; i < lokIzvedbe.size(); i++) {
-			str = str + lokIzvedbe.get(i).getNaziv() + ";";
+		for (int i = 0; i < lokIzvedbe.getLokacijeIzvedbe().size(); i++) {
+			str = str + lokIzvedbe.getLokacijeIzvedbe().get(i).getNaziv() + ";";
 		}
 		str = str.substring(0, str.length() - 1);
 		return str;

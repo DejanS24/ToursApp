@@ -10,10 +10,12 @@ import java.util.ArrayList;
 import java.util.Date;
 
 import model.collections.IzvedbeTure;
+import model.collections.LokacijeIzvedbe;
 import model.data.Admin;
 import model.data.IzvedbaTure;
 import model.data.Korisnik;
 import model.data.Lokacija;
+import model.data.LokacijaIzvedbe;
 import model.data.Osoba.Pol;
 import model.data.Tura;
 import model.data.Turista;
@@ -55,14 +57,15 @@ public class FilesReader {
 		    			Date kraj = sdf.parse(delovi[2]);
 		    			int cena = Integer.parseInt(delovi[3]);
 		    			
-		    			ArrayList<Lokacija> lokacije = new ArrayList<Lokacija>();
+		    			ArrayList<LokacijaIzvedbe> lokacije = new ArrayList<LokacijaIzvedbe>();
 		    			String[] lokDelovi = delovi[4].split("\\;");
 		    			for (int i = 0; i < lokDelovi.length; i++){
-		    				Lokacija lk = new Lokacija(lokDelovi[i]);
+		    				LokacijaIzvedbe lk = new LokacijaIzvedbe(lokDelovi[i]);
 		    				lokacije.add(lk);
 		    			}
 		    			
-		    			IzvedbaTure it = new IzvedbaTure(pocetak,kraj,cena,lokacije);
+		    			LokacijeIzvedbe lokacijeIzv = new LokacijeIzvedbe(lokacije);
+		    			IzvedbaTure it = new IzvedbaTure(pocetak,kraj,cena,lokacijeIzv);
 		    			it.setIdTure(turaId);
 		    			izvedbe.add(it);
 		    		}else{
@@ -109,7 +112,7 @@ public class FilesReader {
 		    String line = br.readLine();
 
 		    while (line != null) {
-		    	Korisnik k = new Korisnik();
+		    	//Korisnik k = new Korisnik();
 		    	String[] delovi = line.split("\\|");
 		    	
 		    	if (delovi[0].equalsIgnoreCase("v")){
@@ -120,10 +123,12 @@ public class FilesReader {
 		    		String prz = delovi[4];
 		    		String pol = delovi[5];
 		    		if (pol.equalsIgnoreCase("Muski")){
-			    		k = new Vodic(ki,l,prz,ime,Pol.Muski);
+			    		Korisnik k = new Vodic(ki,l,prz,ime,Pol.Muski);
+			    		korisnici.add(k);
 
 		    		}else{
-			    		k = new Vodic(ki,l,prz,ime,Pol.Zenski);
+			    		Korisnik k = new Vodic(ki,l,prz,ime,Pol.Zenski);
+			    		korisnici.add(k);
 
 		    		}
 		    	}else if (delovi[0].equalsIgnoreCase("t")){
@@ -133,21 +138,22 @@ public class FilesReader {
 		    		String prz = delovi[4];
 		    		String pol = delovi[5];
 		    		if (pol.equalsIgnoreCase("0")){
-			    		k = new Turista(ki,l,prz,ime,Pol.Muski);
+			    		Korisnik k = new Turista(ki,l,prz,ime,Pol.Muski);
+			    		korisnici.add(k);
 
 		    		}else{
-			    		k = new Turista(ki,l,prz,ime,Pol.Zenski);
+			    		Korisnik k = new Turista(ki,l,prz,ime,Pol.Zenski);
+			    		korisnici.add(k);
 
 		    		}
 		    		
 		    	}else{
 		    		String ki = delovi[1];
 		    		String l = delovi[2];
-		    		k = new Admin(ki,l);
+		    		Korisnik k = new Admin(ki,l);
+		    		korisnici.add(k);
+
 		    	}
-		    	
-		    	
-		    	korisnici.add(k);
 		    	
 		        line = br.readLine();
 		    }

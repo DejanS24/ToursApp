@@ -1,6 +1,6 @@
 package model.data;
 
-public class Korisnik {
+public abstract class Korisnik {
 	
 	protected String korisnickoIme;
 	protected String lozinka;
