@@ -5,6 +5,7 @@ import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+
 import javax.swing.JButton;
 import javax.swing.JDialog;
 import javax.swing.JLabel;
@@ -18,6 +19,7 @@ import javax.swing.border.LineBorder;
 import model.collections.Ture;
 import model.data.Korisnik;
 import model.data.Tura;
+import model.data.Vodic;
 
 @SuppressWarnings("serial")
 public class IzvedbeTuraDialog extends JDialog{
@@ -57,7 +59,19 @@ public class IzvedbeTuraDialog extends JDialog{
 		optionsPan.setBackground(new Color(173, 216, 230));
 		
 		JButton btnNewButton_3 = new JButton("Zatvori");
+		btnNewButton_3.addActionListener(new ActionListener(){
+			@Override
+			public void actionPerformed(ActionEvent e){
+				dispose();
+			}
+		});
 		optionsPan.add(btnNewButton_3, BorderLayout.WEST);
+		
+		if (korisnik instanceof Vodic)
+		{
+		JButton brnKreirajIzv = new JButton("Kreiraj izvedbu");
+		optionsPan.add(brnKreirajIzv);	//TODO 
+		}
 		
 		    
 		for (int i = 0; i<trenutna.getListaIzvedbi().getIzvedbeTure().size(); i++){

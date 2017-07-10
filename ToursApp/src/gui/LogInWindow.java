@@ -21,8 +21,8 @@ public class LogInWindow extends Window{
 	JPanel jPanLeft = new JPanel(new GridLayout(2,1));
 	JPanel jPanRight = new JPanel(new GridLayout(2,1));
 	JPanel jPanBottom = new JPanel();
-	JButton jb = new JButton("Log in");
-	
+	JButton jb = new JButton("Prijavi se");
+	JButton jbRegistracija=new JButton("Registruj se");
 	JTextField username = new JTextField(20);
 	JPasswordField pass = new JPasswordField(20);
 	
@@ -57,7 +57,7 @@ public class LogInWindow extends Window{
 			}
 		});
 		jPanBottom.add(jb);
-		
+		jPanBottom.add(jbRegistracija);
 		add(jPanLeft,BorderLayout.WEST);
 		add(jPanRight);
 		add(jPanBottom,BorderLayout.SOUTH);

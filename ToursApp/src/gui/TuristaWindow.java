@@ -25,6 +25,7 @@ import javax.swing.border.LineBorder;
 import model.collections.Ture;
 import model.data.Korisnik;
 import model.data.Tura;
+import model.data.Turista;
 
 @SuppressWarnings("serial")
 public class TuristaWindow extends Window{
@@ -51,12 +52,24 @@ public class TuristaWindow extends Window{
 
 
 		JButton btnMojProfil = new JButton("MOJ PROFIL");
+		btnMojProfil.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				MojProfilWindow profil=new MojProfilWindow((Turista) korisnik);
+				profil.setVisible(true);
+			}
+		});
 		optionsPan.add(btnMojProfil, BorderLayout.WEST);
 		
 		JButton btnPosaljiZahtev = new JButton("Posalji zahtev za vodica");
 		optionsPan.add(btnPosaljiZahtev, BorderLayout.CENTER);
 		
 		JButton btnOdlogujSe = new JButton("Odloguj se");
+		btnOdlogujSe.addActionListener(new ActionListener(){
+			@Override
+			public void actionPerformed(ActionEvent e){
+				System.exit(0);
+			}
+		});
 		optionsPan.add(btnOdlogujSe, BorderLayout.EAST);
 
 		
@@ -91,13 +104,13 @@ public class TuristaWindow extends Window{
 			turaPanel.add(titleTure, BorderLayout.NORTH);
 			titleTure.setColumns(10);
 			
-			BufferedImage myPicture = ImageIO.read(new File("Desert.jpg"));
+			BufferedImage myPicture = ImageIO.read(new File(ture.getTure().get(i).getSlika()));
 			myPicture = resize(myPicture,90,90);
 			JLabel picLabel = new JLabel(new ImageIcon(myPicture));
 			turaPanel.add(picLabel,BorderLayout.WEST);
 			
 			JTextPane txtpnOvdeIdeOpis = new JTextPane();
-			txtpnOvdeIdeOpis.setText(ture.getTure().get(i).getVodic());
+			txtpnOvdeIdeOpis.setText(ture.getTure().get(i).getGrad().getOpis());
 			txtpnOvdeIdeOpis.setEditable(false);
 			txtpnOvdeIdeOpis.setBackground(new Color(175, 206, 200));
 			turaPanel.add(txtpnOvdeIdeOpis, BorderLayout.CENTER);

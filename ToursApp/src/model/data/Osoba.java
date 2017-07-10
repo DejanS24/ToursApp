@@ -4,10 +4,19 @@ public abstract class Osoba extends Korisnik{
 
 	public enum Pol {Zenski, Muski}
 	
-	private String prezime;
-	private String ime;
-	private Pol pol;
+	protected String prezime;
+	protected String ime;
+	protected Pol pol;
+	protected String kontakt;
 	
+	public String getKontakt() {
+		return kontakt;
+	}
+
+	public void setKontakt(String kontakt) {
+		this.kontakt = kontakt;
+	}
+
 	public String getPrezime() {
 		return prezime;
 	}
@@ -32,16 +41,18 @@ public abstract class Osoba extends Korisnik{
 		this.pol = pol;
 	}
 
-	public Osoba(String korisnickoIme, String lozinka, String prezime, String ime, Pol pol) {
+	public Osoba(String korisnickoIme, String lozinka, String prezime, String ime, Pol pol, String kontakt) {
 		super(korisnickoIme, lozinka);
 		this.prezime = prezime;
 		this.ime = ime;
 		this.pol = pol;
+		this.kontakt = kontakt;
 	}
 
 	@Override
 	public String toString() {
-		return korisnickoIme + "|" + lozinka + "|" + ime + "|" + prezime + "|" + pol;
+		return korisnickoIme + "|" + lozinka + "|" + ime + "|" + prezime + "|" + pol + "|" +
+	kontakt;
 	}
 	
 	
