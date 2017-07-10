@@ -4,7 +4,7 @@ import java.util.ArrayList;
 
 import model.data.IzvedbaTure;
 
-public class IzvedbeTure extends Kolekcija{
+public class IzvedbeTure{
 
 	ArrayList<IzvedbaTure> izvedbeTure;
 

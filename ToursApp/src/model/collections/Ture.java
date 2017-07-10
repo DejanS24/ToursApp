@@ -4,7 +4,7 @@ import java.util.ArrayList;
 
 import model.data.Tura;
 
-public class Ture extends Kolekcija{
+public class Ture{
 
 	ArrayList<Tura> ture;
 

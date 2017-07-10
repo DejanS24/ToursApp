@@ -17,6 +17,7 @@ import javax.swing.JTextPane;
 import javax.swing.border.LineBorder;
 
 import model.collections.Ture;
+import model.data.IzvedbaTure;
 import model.data.Korisnik;
 import model.data.Tura;
 import model.data.Vodic;
@@ -81,13 +82,15 @@ public class IzvedbeTuraDialog extends JDialog{
 		    izvedbaPanel.setPreferredSize(new Dimension(450, 90));
 			izvedbaPanel.setLayout(new BorderLayout(0, 0));
 		    
-			if (moguceRezervisati()){
+			IzvedbaTure it = trenutna.getListaIzvedbi().getIzvedbeTure().get(i);
+			if (MyApp.izvedbaSeMozeRezervisati(it) && !MyApp.jeZauzet(korisnik, it.getPocetak(), it.getKraj())){
 				JButton rezervisiIzvedbu = new JButton("Rezervisi izvedbu");
 			    rezervisiIzvedbu.setPreferredSize(new Dimension(100,20));
 			    izvedbaPanel.add(rezervisiIzvedbu, BorderLayout.EAST);
 			    rezervisiIzvedbu.addActionListener(new ActionListener(){
 					@Override
 					public void actionPerformed(ActionEvent e) {
+						MyApp.rezervisiKorisnikaUIzvedbu(turista.getKorisnickoIme(),it, ture);
 						dispose();
 					}
 				});

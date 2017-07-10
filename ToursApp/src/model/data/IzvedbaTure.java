@@ -3,14 +3,17 @@ package model.data;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.Timer;
+import java.util.TimerTask;
 
 import model.collections.Komentari;
 import model.collections.LokacijeIzvedbe;
 import model.collections.Ocene;
+import model.state.IzvedbaSpremna;
 import model.state.StanjeIzvedbe;
 
 public class IzvedbaTure extends Tura{
-
+	
 	String idIzvedbe;
 	Date pocetak;
 	Date kraj;
@@ -21,8 +24,62 @@ public class IzvedbaTure extends Tura{
 	int maxTurista;
 	ArrayList<String> turisti;
 	String vodic;
+	
 	StanjeIzvedbe stanje;
 	
+	Timer timer;
+	
+	private void pokreniTimer(){
+		timer.scheduleAtFixedRate(new TimerTask() {
+			  @Override
+			  public void run() {
+				  Date danasnjiDatum = new Date();
+				  if (danasnjiDatum.after(pocetak)){
+					  if (turisti.size() < minTurista){
+						  otkaziIzvedbu();
+					  }else{
+						  otpocniIzvedbu();
+					  }
+				  }
+				  if (danasnjiDatum.after(kraj)){
+					  zavrsiIzvedbu();
+				  }
+			  }
+			}, 1, 2*60*1000);
+	}
+	
+	@SuppressWarnings("unused")
+	private void promeniStanje(StanjeIzvedbe s){
+		stanje = s;
+	}
+	
+	public void otpocniIzvedbu(){
+		stanje.otpocniIzvedbu(this);
+	}
+	
+	public void zavrsiIzvedbu(){
+		stanje.zavrsiIzvedbu(this);
+	}
+	
+	public void otkaziIzvedbu(){
+		stanje.otkaziIzvedbu(this);
+	}
+	
+	public IzvedbaTure(Date pocetak, Date kraj, LokacijeIzvedbe lokIzvedbe) {
+		super();
+		this.pocetak = pocetak;
+		this.kraj = kraj;
+		this.lokIzvedbe = lokIzvedbe;
+		this.stanje = IzvedbaSpremna.instance();
+		this.setTimer(new Timer());
+		pokreniTimer();
+	}
+	
+	public IzvedbaTure() {
+		super();
+		this.setTimer(new Timer());
+		pokreniTimer();
+	}
 	
 	public ArrayList<String> getTuristi() {
 		return turisti;
@@ -74,17 +131,6 @@ public class IzvedbaTure extends Tura{
 		this.lokIzvedbe = lokIzvedbe;
 	}
 	
-	public IzvedbaTure(Date pocetak, Date kraj, LokacijeIzvedbe lokIzvedbe) {
-		super();
-		this.pocetak = pocetak;
-		this.kraj = kraj;
-		this.lokIzvedbe = lokIzvedbe;
-	}
-	
-	public IzvedbaTure() {
-		super();
-	}
-	
 	public String toString() {
 		String p;
 		String k;
@@ -111,6 +157,22 @@ public class IzvedbaTure extends Tura{
 		this.komentari = komentari;
 	}
 	
+	public StanjeIzvedbe getStanje() {
+		return stanje;
+	}
+
+	public void setStanje(StanjeIzvedbe stanje) {
+		this.stanje = stanje;
+	}
+
+	public Timer getTimer() {
+		return timer;
+	}
+
+	public void setTimer(Timer timer) {
+		this.timer = timer;
+	}
+
 	public String turistaToString(){
 		String str = "";
 		for (int i = 0; i < turisti.size(); i++) {
@@ -180,6 +242,7 @@ public class IzvedbaTure extends Tura{
 		str = str.substring(0, str.length() - 1);
 		return str;
 	}
+	
 	
 	
 }

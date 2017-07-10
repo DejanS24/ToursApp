@@ -3,18 +3,23 @@ package gui;
 import java.io.IOException;
 import java.text.ParseException;
 import java.util.ArrayList;
+import java.util.Date;
 
 import model.collections.Korisnici;
 import model.collections.Ture;
 import model.data.Admin;
+import model.data.IzvedbaTure;
 import model.data.Korisnik;
 import model.data.Tura;
 import model.data.Turista;
 import model.data.Vodic;
+import model.state.IzvedbaOtkazana;
 import util.FilesReader;
 import util.FilesWriter;
 
 public class MyApp {
+	
+	static Korisnik korisnik;
 	
 	static ArrayList<Tura> t;
 	static ArrayList<Korisnik> k;
@@ -40,7 +45,7 @@ public class MyApp {
 		
 		waitForButton(login);
 		
-		Korisnik korisnik = login.getK();
+		korisnik = login.getK();
 		
 		if (korisnik instanceof Vodic){
 			VodicWindow vodicWin = new VodicWindow(korisnik, tur);
@@ -55,6 +60,35 @@ public class MyApp {
 			a.setListaZahteva(fr.procitajZahteve());
 			AdminWindow adminWin = new AdminWindow(a);
 			adminWin.setVisible(true);
+		}
+	}
+	
+	static boolean jeZauzet(Korisnik kor, Date datP, Date datZ){
+		for (Tura tura : t){
+			for (IzvedbaTure it : tura.getListaIzvedbi().getIzvedbeTure()){
+				for (String korIme:it.getTuristi()){
+					if (korIme.equalsIgnoreCase(kor.getKorisnickoIme())){
+						if (kor.getKorisnickoIme().equals(korIme)){
+							
+							if (datP.after(it.getPocetak()) && datP.before(it.getKraj())){
+								return true;
+							}
+							if (datZ.after(it.getPocetak()) && datZ.before(it.getKraj())){
+								return true;
+							}
+						}
+					}
+				}
+			}
+		}		
+		return false;
+	}
+	
+	static boolean izvedbaSeMozeRezervisati(IzvedbaTure it){
+		if (it.getTuristi().size() == it.getMaxTurista() || it.getStanje() instanceof IzvedbaOtkazana){
+			return false;
+		}else{
+			return true;
 		}
 	}
 	
@@ -83,6 +117,24 @@ public class MyApp {
 		while (login.isVisible()){
 			Thread.sleep(100);
 		}
+	}
+	
+	static void rezervisiKorisnikaUIzvedbu(String korisnickoIme, IzvedbaTure it, Ture ture){
+		ArrayList<String> turisti = it.getTuristi();
+		turisti.add(korisnickoIme);
+		it.setTuristi(turisti);
+		
+		for (int i = 0; i < ture.getTure().size(); i++){
+			Tura t = ture.getTure().get(i);
+			for (int j = 0; j < t.getListaIzvedbi().getIzvedbeTure().size(); j++){
+				IzvedbaTure izv = t.getListaIzvedbi().getIzvedbeTure().get(j);
+				if (izv.getIdIzvedbe().equalsIgnoreCase(it.getIdIzvedbe())){
+					izv = it;
+				}
+			}
+		}
+		FilesWriter fw = new FilesWriter();
+		fw.upisiIzvedbe(ture);
 	}
 
 }

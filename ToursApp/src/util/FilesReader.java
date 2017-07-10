@@ -1,7 +1,6 @@
 package util;
 
 import java.io.BufferedReader;
-import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
 import java.text.DateFormat;
@@ -114,8 +113,7 @@ public class FilesReader {
 			String ocene = "";
 
 			while (line != null) {
-				IzvedbaTure it = new IzvedbaTure();
-
+				
 				Ocene o = new Ocene();
 				Komentari k = new Komentari();
 
@@ -143,14 +141,6 @@ public class FilesReader {
 				ocene = delovi[11];
 				turisti = delovi[12];
 
-				it.setIdTure(idTure);
-				it.setIdIzvedbe(idIzvedbe);
-				it.setPocetak(pocetak);
-				it.setKraj(kraj);
-				it.setMinTurista(min);
-				it.setMaxTurista(max);
-				it.setVodic(vodic);
-
 				String[] lok = lokacija.split(";");
 				String[] cen = cene.split(";");
 				String[] opisi = opis.split(";");
@@ -165,7 +155,15 @@ public class FilesReader {
 				}
 
 				l.setLokacijeIzvedbe(listaLokacija);
-				it.setLokIzvedbe(l);
+				
+				IzvedbaTure it = new IzvedbaTure(pocetak,kraj,l);
+
+				it.setIdTure(idTure);
+				it.setIdIzvedbe(idIzvedbe);
+				it.setMinTurista(min);
+				it.setMaxTurista(max);
+				it.setVodic(vodic);
+
 
 				String[] tur;
 				if (!turisti.equals(" ")) {
