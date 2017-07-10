@@ -1,5 +1,5 @@
 package model.state;
 
-public class IzvedbaOtkazana {
+public class IzvedbaOtkazana extends StanjeIzvedbe{
 
 }

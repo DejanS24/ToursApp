@@ -114,7 +114,9 @@ public class IzvedbaTure extends Tura{
 		for (int i = 0; i < turisti.size(); i++) {
 			str = str + turisti.get(i) + ";";
 		}
-		str = str.substring(0, str.length() - 1);
+		if (str.length() > 0){
+			str = str.substring(0, str.length() - 1);
+		}
 		return str;
 	}
 	
@@ -123,7 +125,9 @@ public class IzvedbaTure extends Tura{
 		for (int i = 0; i < ocene.getOcene().size(); i++) {
 			str = str + ocene.getOcene().get(i).getVrednost() + ";";
 		}
-		str = str.substring(0, str.length() - 1);
+		if (str.length() > 0){
+			str = str.substring(0, str.length() - 1);
+		}
 		return str;
 	}
 	
@@ -133,7 +137,9 @@ public class IzvedbaTure extends Tura{
 			str = str + komentari.getKomentari().get(i).getNaziv() + ":";
 			str = str + komentari.getKomentari().get(i).getTelo() + ";";
 		}
-		str = str.substring(0, str.length() - 1);
+		if (str.length() > 1){
+			str = str.substring(0, str.length() - 1);
+		}
 		return str;
 	}
 	
@@ -142,7 +148,9 @@ public class IzvedbaTure extends Tura{
 		for (int i = 0; i < lokIzvedbe.getLokacijeIzvedbe().size(); i++) {
 			str = str + lokIzvedbe.getLokacijeIzvedbe().get(i).getCena() + ";";
 		}
-		str = str.substring(0, str.length() - 1);
+		if (str.length() > 0){
+			str = str.substring(0, str.length() - 1);
+		}
 		return str;
 	}
 	
@@ -151,7 +159,9 @@ public class IzvedbaTure extends Tura{
 		for (int i = 0; i < lokIzvedbe.getLokacijeIzvedbe().size(); i++) {
 			str = str + lokIzvedbe.getLokacijeIzvedbe().get(i).getOpis() + ";";
 		}
-		str = str.substring(0, str.length() - 1);
+		if (str.length() > 0){
+			str = str.substring(0, str.length() - 1);
+		}
 		return str;
 	}
 	
@@ -160,7 +170,9 @@ public class IzvedbaTure extends Tura{
 		for (int i = 0; i < lokIzvedbe.getLokacijeIzvedbe().size(); i++) {
 			str = str + lokIzvedbe.getLokacijeIzvedbe().get(i).getNaziv() + ";";
 		}
-		str = str.substring(0, str.length() - 1);
+		if (str.length() > 0){
+			str = str.substring(0, str.length() - 1);
+		}
 		return str;
 	}
 	

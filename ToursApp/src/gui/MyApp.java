@@ -14,13 +14,16 @@ import util.FilesReader;
 import util.FilesWriter;
 
 public class MyApp {
+	
+	static ArrayList<Tura> t;
+	static ArrayList<Korisnik> k;
 
 	@SuppressWarnings({ "static-access" })
 	public static void main(String[] args) throws IOException, ParseException, InterruptedException {
 		FilesReader fr = new FilesReader();
 		
-		ArrayList<Tura> t = fr.procitajTure();
-		ArrayList<Korisnik> k = fr.procitajKorisnike();
+		t = fr.procitajTure();
+		k = fr.procitajKorisnike();
 		
 		Korisnici kor = new Korisnici(k);
 		Ture tur = new Ture(t);
@@ -28,6 +31,7 @@ public class MyApp {
 		FilesWriter fw = new FilesWriter();
 		fw.writeUsers(kor);
 		fw.writeTours(tur);
+		fw.upisiIzvedbe(tur);
 		
 		LogInWindow login = new LogInWindow();
 		login.setKorisnici(kor);

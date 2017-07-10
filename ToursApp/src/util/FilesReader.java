@@ -135,32 +135,37 @@ public class FilesReader {
 					lk.setCena(cen[i]);
 					lk.setNaziv(lok[i]);
 					lk.setOpis(opisi[i]);
-					/*System.out.println(lk.getNaziv());
-					System.out.println(lk.getOpis());
-					System.out.println(lk.getCena());
-					System.out.println("B");
-					System.out.println();*/
 					listaLokacija.add(lk);
 					
 					
 				}
 				
-				
-				System.out.println();
-				for (int i = 0; i < listaLokacija.size(); i++) {
-				
-					System.out.println(listaLokacija.get(i).getNaziv());
-					
-					
-				}
-				System.out.println();
 				l.setLokacijeIzvedbe(listaLokacija);
 				it.setLokIzvedbe(l);
 				
+				String[] tur;
+				if(!turisti.equals(" ")){
+					tur = turisti.split(";");
+				}
+				else{
+					tur = new String[0];
+				}
 				
-				String[] tur = turisti.split(";");
-				String[] oc = ocene.split(";");
-				String[] kom = komentari.split(";");
+				String[] oc;
+				if(!ocene.equals(" ")){
+					oc = ocene.split(";");
+				}
+				else{
+					oc = new String[0];
+				}
+				
+				String[] kom;
+				if(!komentari.equals(" ")){
+					kom = komentari.split(";");
+				}
+				else{
+					kom = new String[0];
+				}
 				
 				for (int i = 0; i < oc.length; i++) {
 					Ocena ocena1 = new Ocena();
@@ -180,6 +185,7 @@ public class FilesReader {
 				}
 				k.setKomentari(listaKomentara);
 				it.setKomentari(k);
+				
 				for (int i = 0; i < tur.length; i++) {
 					listaTurista.add(tur[i]);
 				}
@@ -230,27 +236,31 @@ public class FilesReader {
 		    		String ime = delovi[3];
 		    		String prz = delovi[4];
 		    		String pol = delovi[5];
+		    		String brojTelefona = delovi[6];
+		    		boolean aktivan = Boolean.parseBoolean(delovi[7]);
 		    		if (pol.equalsIgnoreCase("Muski")){
-			    		Korisnik k = new Vodic(ki,l,prz,ime,Pol.Muski);
+			    		Korisnik k = new Vodic(ki,l,prz,ime,Pol.Muski, brojTelefona, aktivan);
 			    		korisnici.add(k);
 
 		    		}else{
-			    		Korisnik k = new Vodic(ki,l,prz,ime,Pol.Zenski);
+			    		Korisnik k = new Vodic(ki,l,prz,ime,Pol.Zenski, brojTelefona, aktivan);
 			    		korisnici.add(k);
 
 		    		}
+		    		
 		    	}else if (delovi[0].equalsIgnoreCase("t")){
 		    		String ki = delovi[1];
 		    		String l = delovi[2];
 		    		String ime = delovi[3];
 		    		String prz = delovi[4];
 		    		String pol = delovi[5];
+		    		String kontakt = delovi[6];
 		    		if (pol.equalsIgnoreCase("0")){
-			    		Korisnik k = new Turista(ki,l,prz,ime,Pol.Muski);
+			    		Korisnik k = new Turista(ki,l,prz,ime,Pol.Muski, kontakt);
 			    		korisnici.add(k);
 
 		    		}else{
-			    		Korisnik k = new Turista(ki,l,prz,ime,Pol.Zenski);
+			    		Korisnik k = new Turista(ki,l,prz,ime,Pol.Zenski, kontakt);
 			    		korisnici.add(k);
 
 		    		}

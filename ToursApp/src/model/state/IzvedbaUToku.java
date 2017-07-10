@@ -1,5 +1,5 @@
 package model.state;
 
-public class IzvedbaUToku {
+public class IzvedbaUToku extends StanjeIzvedbe{
 
 }
