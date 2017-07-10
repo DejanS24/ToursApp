@@ -1,0 +1,5 @@
+001|0011|03.07.2017 14:30|04.07.2017 15:40|15|50|20;10;10|Kej;Trg;Pozoriste|Kej1;Trg1;Pozoriste1|pera1| |4| 
+002|0012|15.07.2017 16:30|04.07.2017 19:30|20|60|23;30;30|Trg;Fontana;Konj|Trg1;Fontana1;Konj1|pera2|Naziv1:komentar1;Naziv2:komenfftar2|2;1|turista1;turista2
+003|0013|03.07.2017 12:30|30.07.2017 20:00|30|70|20;20;10|Trg;Krivi toranj;Zoo Vrt|Trg1;KriviToranj1;ZooVrt1|pera3|Nazivi1:komeffsntar1;Nazivi2:komentar2|4;2|turista1;turista2
+004|0014|06.07.2017 11:00|04.07.2017 09:00|40|90|30;40;39|Skupstina;Gimnazija;Jebiga|Skuptina1;Gimnazija1;Jebiga1|pera4|Nazvi1:komentfdsfdar1;Naziv2:komentar2|4;5|turista1;turista2
+005|0015|03.07.2017 17:00|04.07.2017 20:28|50|100|30;40;30|Nemam;Vise;Ideja|Nemam1;Vise1;Ideja1|pera5|Naziv1:komentar5;Naziv2:komentar2|5;1|turista1;turista2
